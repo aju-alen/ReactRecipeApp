@@ -2,6 +2,8 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import  styled  from 'styled-components'
 import { Link } from 'react-router-dom'
+import {motion} from 'framer-motion';
+
 
 function Searched() {
     const [searchrecipe,setSearchrecipe] = React.useState([])
@@ -23,7 +25,10 @@ React.useEffect(()=>{
     getSearched(params.search)
 },[params.search])
 return (
-    <Grid>{searchrecipe.map(item=>(
+    <Grid animate={{opacity:1}} 
+    initial={{opacity:0}}
+    exit={{opacity:0}}
+    transition={{duration:0.5}}>{searchrecipe.map(item=>(
         <Card key={item.id}>
             <Link to={`./recipe/${item.id}`} >
             <img src={item.image} alt={item.title}/>
@@ -33,7 +38,7 @@ return (
     ))}</Grid>
   )
 }
-const Grid = styled.div`
+const Grid = styled(motion.div)`
 display:grid;
 grid-template-columns: repeat(4, auto);
 grid-template-rows: repeat(2, auto);
